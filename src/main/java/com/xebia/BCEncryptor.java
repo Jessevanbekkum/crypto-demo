@@ -16,13 +16,13 @@ public class BCEncryptor implements Encryptor {
     }
 
     @Override
-    public String encryptAsync(final String plainText) {
+    public String encryptAsym(final String plainText) {
         // TODO Implement
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public String decryptAsync(final String plainText) {
+    public String decryptAsym(final String plainText) {
         // TODO Implement
         throw new UnsupportedOperationException();
     }

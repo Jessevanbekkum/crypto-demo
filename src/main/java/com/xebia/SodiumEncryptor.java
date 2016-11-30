@@ -30,6 +30,18 @@ public class SodiumEncryptor implements Encryptor {
         return encoder.encodeToString(result);
     }
 
+    @Override
+    public String encryptAsym(final String plainText) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String decryptAsym(final String plainText) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
+    }
+
     public static byte[] concat(byte[] first, byte[] second) {
         byte[] result = Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);

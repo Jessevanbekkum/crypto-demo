@@ -6,7 +6,7 @@ public interface Encryptor {
 
     String decrypt(String cipherText);
 
-    String encryptAsync(String plainText);
+    String encryptAsym(String plainText);
 
-    String decryptAsync(String plainText);
+    String decryptAsym(String plainText);
 }

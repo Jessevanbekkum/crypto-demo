@@ -26,4 +26,19 @@ public class KeyCzarEncryptorTest {
         String decrypt = keyCzarEncryptor.decrypt(crypted);
         assertThat(decrypt, is("Secret"));
     }
+
+
+    @Test
+    public void shouldEncryptAsym() {
+        String cipherText = keyCzarEncryptor.encryptAsym("Secret");
+        System.out.println(cipherText);
+        assertThat(cipherText, not(is("secret")));
+    }
+
+    @Test
+    public void shouldDecryptAsym() {
+        String crypted = keyCzarEncryptor.encryptAsym("Secret");
+        String decrypt = keyCzarEncryptor.decryptAsym(crypted);
+        assertThat(decrypt, is("Secret"));
+    }
 }

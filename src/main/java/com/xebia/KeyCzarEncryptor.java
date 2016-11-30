@@ -5,15 +5,17 @@ import org.keyczar.exceptions.KeyczarException;
 
 public class KeyCzarEncryptor implements Encryptor {
 
-    private final Crypter crypter;
+    private final Crypter symCrypter;
+    private final Crypter asymCrypter;
 
     public KeyCzarEncryptor() throws KeyczarException {
-        crypter = new Crypter("/Users/jvanbekkum/programming/crypto-demo/keys");
+        symCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/sym").getFile());
+        asymCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/asym").getFile());
     }
 
     public String encrypt(final String plainText) {
         try {
-            return crypter.encrypt(plainText);
+            return symCrypter.encrypt(plainText);
         } catch (KeyczarException e) {
             throw new RuntimeException(e);
         }
@@ -21,7 +23,25 @@ public class KeyCzarEncryptor implements Encryptor {
 
     public String decrypt(final String ciphertext) {
         try {
-            return crypter.decrypt(ciphertext);
+            return symCrypter.decrypt(ciphertext);
+        } catch (KeyczarException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String encryptAsym(final String plainText) {
+        try {
+            return asymCrypter.encrypt(plainText);
+        } catch (KeyczarException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String decryptAsym(final String cipherText) {
+        try {
+            return asymCrypter.decrypt(cipherText);
         } catch (KeyczarException e) {
             throw new RuntimeException(e);
         }
