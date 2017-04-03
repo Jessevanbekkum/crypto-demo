@@ -1,7 +1,9 @@
 package com.xebia;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Base64;
+import javax.crypto.SealedObject;
 import org.abstractj.kalium.crypto.Random;
 import org.abstractj.kalium.crypto.SecretBox;
 
@@ -16,6 +18,7 @@ public class SodiumEncryptor implements Encryptor {
 
     }
 
+    @Override
     public String encrypt(final String plainText) {
 
         byte[] nonce = random.randomBytes(NONCE_SIZE);
@@ -24,6 +27,7 @@ public class SodiumEncryptor implements Encryptor {
         return encoder.encodeToString(total);
     }
 
+    @Override
     public String decrypt(final String cipherText) {
 
         byte[] result = box.decrypt(random.randomBytes(24), cipherText.getBytes());
@@ -38,6 +42,18 @@ public class SodiumEncryptor implements Encryptor {
 
     @Override
     public String decryptAsym(final String plainText) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SealedObject seal(final Serializable o) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object unseal(final SealedObject so) {
         // TODO Implement
         throw new UnsupportedOperationException();
     }

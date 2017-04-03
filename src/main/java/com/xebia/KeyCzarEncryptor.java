@@ -1,5 +1,7 @@
 package com.xebia;
 
+import java.io.Serializable;
+import javax.crypto.SealedObject;
 import org.keyczar.Crypter;
 import org.keyczar.exceptions.KeyczarException;
 
@@ -8,11 +10,16 @@ public class KeyCzarEncryptor implements Encryptor {
     private final Crypter symCrypter;
     private final Crypter asymCrypter;
 
-    public KeyCzarEncryptor() throws KeyczarException {
-        symCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/sym").getFile());
-        asymCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/asym").getFile());
+    KeyCzarEncryptor() {
+        try {
+            symCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/sym").getFile());
+            asymCrypter = new Crypter(this.getClass().getResource("/keyczarkeys/asym").getFile());
+        } catch (KeyczarException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    @Override
     public String encrypt(final String plainText) {
         try {
             return symCrypter.encrypt(plainText);
@@ -21,6 +28,7 @@ public class KeyCzarEncryptor implements Encryptor {
         }
     }
 
+    @Override
     public String decrypt(final String ciphertext) {
         try {
             return symCrypter.decrypt(ciphertext);
@@ -45,5 +53,17 @@ public class KeyCzarEncryptor implements Encryptor {
         } catch (KeyczarException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public SealedObject seal(final Serializable o) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object unseal(final SealedObject so) {
+        // TODO Implement
+        throw new UnsupportedOperationException();
     }
 }
